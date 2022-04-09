@@ -1,14 +1,24 @@
 import { View, TextInput } from 'react-native'
 import React from 'react'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { SafeAreaView ,TouchableOpacity,Text} from 'react-native';
 import SafeAreaAndroid from '../components/SafeAreaAndroid';
 import { useFetch } from '../hooks/useFetch';
 
 
-export default function Login() {
+export default function Login({ navigation}) {
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
+
+    const loginCheck = () =>{
+      if(username=='admin' && password=='admin'){
+        navigation.navigate('AdminScreens');
+      }
+      else{
+        navigation.navigate('Screens');
+      }
+    }
+   
 
   return (
     <SafeAreaView style={SafeAreaAndroid.AndroidSafeArea}>
@@ -41,7 +51,8 @@ export default function Login() {
                               width:100 ,
                               alignSelf:'center' ,
                               marginTop:10                                                      
-    }}
+  }}
+  onPress={() => loginCheck()}
     ><Text style={{color: "black",textAlign:'center'}}>Giriş Yap</Text></TouchableOpacity>
     </SafeAreaView>
   )
